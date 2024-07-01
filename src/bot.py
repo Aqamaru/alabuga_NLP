@@ -1,6 +1,6 @@
 import keyboards as Keyboards
 from text import Text
-from telebot import TeleBot
+from telebot import TeleBot, types
 from telebot.types import Message
 
 
@@ -13,18 +13,7 @@ COMPANIES : list[str] = []
 def on_start(msg: Message) -> None: 
 
     BOT.send_message(msg.chat.id, text = Text.START_MESSAGE,
-                     reply_markup = Keyboards.START) 
-    
-    BOT.reply_to(Message, "Здравствуй! Тебя приветствует бот команды Ин су лин, прежде чем пользоваться мной, советую ознакомиться с правилами (/help), чтобы не запутаться")
-
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    
-    btn = types.KeyboardButton("Добавить компанию")
-    markup.add(btn)
-
-    for i in COMPANY:
-        btn = types.KeyboardButton(i)
-        markup.add(btn)
+                     reply_markup = Keyboards.START)
 
 @BOT.message_handler(commands = ['help'])
 def on_help(msg: Message) -> None:
@@ -48,9 +37,6 @@ def on_message(msg: Message) -> None:
             BOT.send_message(msg.chat.id, text = Text.ANALYSIS,
                              reply_markup = Keyboards.ANALYSIS)
             return
-
-        case Text.SET_COMPANIES_BTN:
-            return
         
         case Text.BACK_TO_MAIN_MENU_BTN:
             BOT.send_message(msg.chat.id, text = Text.BACK_TO_MAIN_MENU,
@@ -59,13 +45,39 @@ def on_message(msg: Message) -> None:
 
         case Text.HELP_BTN:
             BOT.send_message(msg.chat.id, text = Text.HELP,
+                             reply_markup = Keyboards.HELPS)
+            return
+        
+        case Text.CONTACTS_BTN:
+            BOT.send_message(msg.chat.id, text = Text.CONTACTS,
                              reply_markup = Keyboards.START)
+            return
+        
+        case Text.USAGE_BTN:
+            BOT.send_message(msg.chat.id, text = Text.USAGE,
+                             reply_markup = Keyboards.START)
+            return
+        
+        case Text.SET_COMPANIES_BTN:
+            message = BOT.send_message(msg.chat.id, text = Text.SET_COMPANIES)
+            BOT.register_next_step_handler(message = message,  )
             return
 
         case _:
             BOT.send_message(msg.chat.id, text = Text.UNKNOWN_COMMAND,
                              reply_markup = Keyboards.START)
             return
+        
+def get_companes(message: Message) -> None:
+    global COMPANIES 
+    COMPANIES = message.text.split()
+
+    BOT.send_message(message.chat.id, text = Text.GET_COMPANES + " ".join(COMPANIES))
+
+
+
+
+
 
 BOT.infinity_polling()
     
