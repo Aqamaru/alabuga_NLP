@@ -60,7 +60,7 @@ def on_message(msg: Message) -> None:
         
         case Text.SET_COMPANIES_BTN:
             message = BOT.send_message(msg.chat.id, text = Text.SET_COMPANIES)
-            BOT.register_next_step_handler(message = message,  )
+            BOT.register_next_step_handler(message = message, callback=get_companes)
             return
 
         case _:
@@ -70,9 +70,9 @@ def on_message(msg: Message) -> None:
         
 def get_companes(message: Message) -> None:
     global COMPANIES 
-    COMPANIES = message.text.split()
+    COMPANIES +=  message.text.split()
 
-    BOT.send_message(message.chat.id, text = Text.GET_COMPANES + " ".join(COMPANIES))
+    BOT.send_message(message.chat.id, text = Text.GET_COMPANES + " " +  " ".join(COMPANIES))
 
 
 
