@@ -1,10 +1,11 @@
 from text import Text
 from keyboards import Keyboards
-from telebot import TeleBot
+from telebot import TeleBot, types
 from telebot.types import Message
 
 
 BOT : TeleBot = TeleBot("7099811190:AAEwZY5cHq4aiuI7YvBt__uTwBTevQB_QCs")
+COMPANY  = ["ВК", "Сбербанк", "Тбанк", "Ютуб", "Тикток"]
 
 
 @BOT.message_handler(commands=['start'])
@@ -12,6 +13,16 @@ def on_start(msg: Message) -> None:
 
     BOT.send_message(msg.chat.id, text = Text.START_MESSAGE,
                      reply_markup = Keyboards.START) 
+    
+
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    
+    btn = types.KeyboardButton("Добавить компанию")
+    markup.add(btn)
+
+    for i in COMPANY:
+        btn = types.KeyboardButton(i)
+        markup.add(btn)
 
 @BOT.message_handler(content_types=['text'])
 def on_message(msg: Message) -> None:
