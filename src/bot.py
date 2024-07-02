@@ -58,10 +58,20 @@ def on_message(msg: Message) -> None:
                              reply_markup = Keyboards.START)
             return
         
-        case Text.SET_COMPANIES_BTN:
+        case Text.SET_COMPANIES_BTN: # Кнопка в главном меню, добавляет в базу новую компанию для выбора
             message = BOT.send_message(msg.chat.id, text = Text.SET_COMPANIES)
             BOT.register_next_step_handler(message = message, callback=get_companes)
             return
+        
+        case Text.SET_COMPANIES_ANALYSIS_BTN: # Тут в аналитике выбирается компания, следом необходимо будет ввести ссылку на статью
+            message = BOT.send_message(msg.chat.id, text = Text.SET_COMPANIES_ANALYSIS,
+                                        reply_markup = Keyboards.ANALYSIS)
+            
+            # вывод кнопок с компаниями, после вывод просьбы вывести статью => 
+            # => BOT.send_message(message.chat.id, text = Text.SEND_AN_ARTICLE) 
+
+            return
+        
 
         case _:
             BOT.send_message(msg.chat.id, text = Text.UNKNOWN_COMMAND,
