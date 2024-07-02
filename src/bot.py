@@ -44,7 +44,7 @@ def on_message(msg: Message) -> None:
             return 
  
         case Text.HELP_BTN: 
-            BOT.send_message(msg.chat.id, text = Text.HELP, 
+            BOT.send_message(msg.chat.id, text = Text.HELP_BASE, 
                              reply_markup = Keyboards.HELPS) 
             return 
          
