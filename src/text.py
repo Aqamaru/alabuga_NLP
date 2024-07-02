@@ -7,13 +7,22 @@ class Text(str, Enum):
     
     HELP_BTN = ("Помощь")
 
-    HELP = ("Вы запросили помощь")
+    HELP_BASE = ("Выберите вид помощи")
     
+    HELP_CMD = ("")
+    
+    HELP_CMD_COMPANIES = ("")
+
+    HELP_CMD_ANALYSIS = ("")
+
     ANALYSIS_BTN = ("Анализ")
     
     ANALYSIS = ("Вы открыли меню анализа")
 
     SET_COMPANIES_BTN = ("Указать компании")
+
+    SET_COMPANIES = ("Список компании обновлен\n"
+                     "Компании:\n")
 
     BACK_TO_MAIN_MENU_BTN = ("Назад")
 
