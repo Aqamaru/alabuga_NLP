@@ -12,3 +12,9 @@ ANALYSIS = ReplyKeyboardMarkup(resize_keyboard = True)\
             Text.SET_COMPANIES_BTN,
             Text.BACK_TO_MAIN_MENU_BTN,
          )))
+
+HELPS = ReplyKeyboardMarkup()\
+        .add(*(KeyboardButton(i) for i in (
+            Text.CONTACTS_BTN,
+            Text.USAGE_BTN,
+         )))
