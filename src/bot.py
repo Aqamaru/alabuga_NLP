@@ -85,9 +85,5 @@ def get_companes(message: Message) -> None:
     BOT.send_message(message.chat.id, text = Text.GET_COMPANES + " " +  " ".join(COMPANIES))
 
 
-
-
-
-
 BOT.infinity_polling()
     
