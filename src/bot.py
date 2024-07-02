@@ -12,7 +12,7 @@ companies: list[str] = []
 def on_start(msg: Message) -> None: 
 
     BOT.send_message(msg.chat.id, text = Text.START_MESSAGE,
-                     reply_markup = Keyboards.START) 
+                     reply_markup = Keyboards.START)     
 
 @BOT.message_handler(commands = ['help'])
 def on_help(msg: Message) -> None:
