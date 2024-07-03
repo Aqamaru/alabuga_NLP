@@ -1,0 +1,15 @@
+import telebot
+
+bot = telebot.TeleBot("7099811190:AAEwZY5cHq4aiuI7YvBt__uTwBTevQB_QCs")
+
+
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+	bot.reply_to(message, "Привет! Тебя приветствует телеграмм бот команды Ин су лин\n\nЧтобы получить силь упоминания, пожалуйста, введите ссылку на статью")
+
+
+@bot.message_handler(func=lambda message: True)
+def echo_all(message):
+	bot.reply_to(message, message.text)
+
+bot.infinity_polling()
